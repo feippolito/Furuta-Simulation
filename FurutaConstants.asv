@@ -1,10 +1,5 @@
 %% Furuta Constants
 
-FurutaSymbolic
-theta2o=5/180;                %Initial position theta2
-x0=pi;                         %Linearization around the point x0
-
-
 %List of parameters
 global p m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0 ...
     I2y0 Ixz20 I2z0 kt0 Rm0 ke0
@@ -58,23 +53,19 @@ b10 = 6.05e-3;
 k10=(I2y0 + I1z0 + L10^2*m20+l10^2*m10+l20^2*m20)/2;
 k20=(I2x0+l20^2*m20)/2;
 
-%%Run simulink
-model = 'SimulationOfFurutaL4';
-load_system(model)
-sim(model)
-
 
 %% Linearised model
 
 syms theta1 theta2 dtheta1 e dtheta2 m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke
 old = [theta1 theta2 dtheta1 dtheta2 e m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke];
-new = [0 x0 0 0 0 m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0  I2y0 Ixz20 I2z0 kt0 Rm0 ke0];
+new = [0 theta2ref 0 0 0 m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0  I2y0 Ixz20 I2z0 kt0 Rm0 ke0];
 
 A11 = diff(f(1),theta1);
 A11 = vpa(subs(A11,old,new));
 
 A12 = diff(f(1),theta2);
 A12 = vpa(subs(A12,old,new));
+
 A13 = diff(f(1),dtheta1);
 A13 = vpa(subs(A13,old,new));
 
@@ -110,20 +101,21 @@ D  = 0;
 
 %Plot graphs
 figure(1)
-t=0:0.01:20;
-U = zeros(1,length(t));
+T=0:0.01:20;
+U = zeros(1,length(T));
 Sys1=ss(A,B,C1,D);
-Output1 = lsim(Sys1,U,t,[0 theta2o 0 0]);
+Output1 = lsim(Sys1,U,T,[0 x0 0 0]);
 Sys2=ss(A,B,C2,D);
-Output2 = lsim(Sys2,U,t,[0 theta2o 0 0]);
+Output2 = lsim(Sys2,U,T,[0 x0 0 0]);
 hold on
 
-plot(t,Output1,'Color','b');
-plot(t,Output2,'Color','b');
+plot(T,Output1);
+plot(T,Output2);
+plot(simout,'.-r');
+plot(simout2,'.-r');
 
-plot(simout1,'Color','r');
-plot(simout2,'Color','r');
-
+plot(simout,'-.r','LineWidth',2)
+plot(simout2,'-.r')
 %% rootlocus
 
 [num1,den1] = ss2tf(A,B,C1,D,1);
@@ -142,6 +134,11 @@ p2 = getoptions(h2);
 p2.Title.String = 'theta2';
 setoptions(h2,p2);
 %%
+
+Sys=ss(A,B,C,0);
+T=0:0.01:20;
+U = zeros(1,length(T));
+Output = lsim(Sys,U,T,[0 -5*pi/180 0 0]);
 
 p = [g0 L10 l10 m10 I1x0 I1y0 I1z0 L20 l20 m20 I2x0 I2y0 I2z0 b10 b20 ...
     Ixz20 kt0 Rm0 Lm0 ];

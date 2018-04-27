@@ -3,7 +3,7 @@
 clc;
 close all;
 %Define global variables
-global ssA ssB
+%global ssA ssB
 %define symbolic variables
 syms theta1 dtheta1 theta2 dtheta2 ddtheta1 ddtheta2 tau1 real
 syms vc1 vc2 w1 w2 real
@@ -42,10 +42,10 @@ I2r = simplify(R'*I2*R);
 %Kinetic Energy
 Tp = m2*(vc2')*vc2/2 + w2'*I2r*w2/2;
 T = m1*(vc1')*vc1/2 + w1'*I1*w1/2 + m2*(vc2')*vc2/2 + w2'*I2r*w2/2;
-T = simplify(T)
+T = simplify(T);
 
 %Potential Energy
-P = m2*g*l2*cos(theta2)
+P = m2*g*l2*cos(theta2);
 
 %Total pendulum Energy
 Ep = simplify(Tp + P);
@@ -75,8 +75,8 @@ diff(partial_dtheta2,theta2)*dtheta2;
 time_der2 = simplify(time_der2);
 
 %Partial derivative in theta1 and theta2
-partial_theta1 = simplify(diff(Lg,theta1))
-partial_theta2 = simplify(diff(Lg,theta2))
+partial_theta1 = simplify(diff(Lg,theta1));
+partial_theta2 = simplify(diff(Lg,theta2));
 
 %Equations of motion
 Eq1 = simplify(time_der1 - partial_theta1);
@@ -111,13 +111,14 @@ f = simplify(D_mtx\(-C_vec - G_vec - B_mtx*[dtheta1;...
     dtheta2]));
 % ---------------------------------------------------------------------
 % Create MATLAB functions for each EOM entry
+
 param_list = {'g','p(1)'; 'L1','p(2)'; 'l1','p(3)'; 'm1','p(4)'; ...
  'I1x','p(5)';'I1y','p(6)';'I1z','p(7)';...
  'L2','p(8)';'l2','p(9)'; 'm2','p(10)';...
 'I2x','p(11)';'I2y','p(12)';'I2z','p(13)';'b1','p(14)';...
 'b2','p(15)';'Ixz2','p(16)';...
 'kt','p(17)';'Rm','p(18)';'Lm','p(19)';'Jm','p(20)';};
-
+%{
 list_q = {'theta1','q(1)'; 'theta2','q(2)';'im','q(3)'};
 list_dq = {'dtheta1','q(1)'; 'dtheta2','q(2)'; 'dim','q(3)'};
 write_fcn('D_matrix.m',{'q','p'},[list_q; param_list],{D_mtx,'D'});
@@ -167,3 +168,5 @@ ssA = [[0 0 1 0 0];
  [A21 A22 A23 A24 A25];
  [A31 A32 A33 A34 A35];];
 ssB = [0; 0; B1; B2; B3;];
+
+%}
