@@ -1,10 +1,10 @@
 %% Furuta Constants
 
-FurutaSymbolic
-theta2o=5/180;                %Initial position theta2
-x0=pi;                         %Linearization around the point x0
+%FurutaSymbolic
+theta2o=10*pi/180;       %Initial position theta2
+x0=0;                    %Linearization around the point x0
 
-
+%%
 %List of parameters
 global p m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0 ...
     I2y0 Ixz20 I2z0 kt0 Rm0 ke0
@@ -13,7 +13,7 @@ global p m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0 ...
 m10 = 0.36233;
 m20 = 0.04948;
 L10 = 230.45e-3;
-l10 = -56.69e-3; %Maybe signal change
+l10 = -56.69e-3;        %Maybe signal change
 L20 = 239.73e-3;
 l20 = 58.18e-3;
 I1x0 = 0;
@@ -55,14 +55,10 @@ b10 = 6.05e-3;
 % Lm0 = 1.845e-3;
 % Jm0 = 0.001; 
 
-k10=(I2y0 + I1z0 + L10^2*m20+l10^2*m10+l20^2*m20)/2;
-k20=(I2x0+l20^2*m20)/2;
-
 %%Run simulink
 model = 'SimulationOfFurutaL4';
 load_system(model)
 sim(model)
-
 
 %% Linearised model
 
@@ -106,43 +102,79 @@ B = double([0; 0; B1; B2]);
 
 C1 = [ 1 0 0 0 ];
 C2 = [ 0 1 0 0 ];
+
+C=C2;
 D  = 0;
-
-%Plot graphs
-figure(1)
-t=0:0.01:20;
-U = zeros(1,length(t));
-Sys1=ss(A,B,C1,D);
-Output1 = lsim(Sys1,U,t,[0 theta2o 0 0]);
-Sys2=ss(A,B,C2,D);
-Output2 = lsim(Sys2,U,t,[0 theta2o 0 0]);
-hold on
-
-plot(t,Output1,'Color','b');
-plot(t,Output2,'Color','b');
-
-plot(simout1,'Color','r');
-plot(simout2,'Color','r');
-
-%% rootlocus
-
-[num1,den1] = ss2tf(A,B,C1,D,1);
-G1=tf(num1,den1);
-figure(2)
-h1=rlocusplot(G1);
-p1 = getoptions(h1);
-p1.Title.String = 'theta1';
-setoptions(h1,p1);
-
-figure(3)
-[num2,den2] = ss2tf(A,B,C2,D,1);
-G2=tf(num2,den2);
-h2=rlocusplot(G2);
-p2 = getoptions(h2);
-p2.Title.String = 'theta2';
-setoptions(h2,p2);
 %%
+%Plot graphs
+% figure(1)
+% t=0:0.01:20;
+% U = zeros(1,length(t));
+% Sys1=ss(A,B,C1,D);
+% Output1 = lsim(Sys1,U,t,[0 theta2o 0 0]);
+% Sys2=ss(A,B,C2,D);
+% Output2 = lsim(Sys2,U,t,[0 theta2o 0 0]);
+% hold on
+% 
+% plot(t,Output1,'Color','b');
+% plot(t,Output2,'Color','b');
+% 
+% plot(simout1,'Color','r');
+% plot(simout2,'Color','r');
+% 
+% legend('linear','' ,'non linear','');
+%% Rootlocus
 
+% [num1,den1] = ss2tf(A,B,C1,D,1);
+% G1=tf(num1,den1);
+% 
+% figure(2)
+% h1=rlocusplot(G1);
+% p1 = getoptions(h1);
+% p1.Title.String = 'theta1';
+% setoptions(h1,p1);
+% 
+% figure(3)
+% [num2,den2] = ss2tf(A,B,C2,D,1);
+% G2=tf(num2,den2);
+% h2=rlocusplot(G2);
+% p2 = getoptions(h2);
+% p2.Title.String = 'theta2';
+% setoptions(h2,p2);
+
+%%
+%Control
+poles =  [(-4+j*4) (-4-j*4) (-2+j*2) (-2-j*2)];
+K = place(A,B,poles);
+sim('LinearMF');
+figure(4);
+plot(WStheta2,'color','b');
+figure(5);
+plot(WSmotor,'color','b');
+
+poles = [(-8+j*8) (-8-j*8) (-4+j*4) (-4-j*4)];
+K = place(A,B,poles);
+sim('LinearMF');
+figure(4);
+hold on
+plot(WStheta2,'color','g');
+figure(5);
+hold on
+plot(WSmotor,'color','g');
+
+poles = [(-4+j*4) (-4-j*4) -5 -10];
+K = place(A,B,poles);
+sim('LinearMF');
+figure(4);
+hold on
+plot(WStheta2,'color','r');
+title('theta2')
+figure(5);
+hold on
+plot(WSmotor,'color','r');
+title('motor')
+
+%%
 p = [g0 L10 l10 m10 I1x0 I1y0 I1z0 L20 l20 m20 I2x0 I2y0 I2z0 b10 b20 ...
     Ixz20 kt0 Rm0 Lm0 ];
 
@@ -152,4 +184,3 @@ F = simplify(subs(simplify(f),[g L1 l1 m1 I1x I1y I1z L2 l2 m2 I2x I2y I2z b1 b2
 Func1 = symfun(F(1),[dtheta1,theta1,dtheta2,theta2,e,im]);
 Func2 = symfun(F(2),[dtheta1,theta1,dtheta2,theta2,e,im]);
 %Func3 = symfun(F(3),[dtheta1,theta1,dtheta2,theta2,e,im]);
-
