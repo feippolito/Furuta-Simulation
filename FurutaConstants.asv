@@ -3,9 +3,7 @@
 %FurutaSymbolic
 theta2o=15*pi/180;       %Initial position theta2
 x0=0;                    %Linearization around the point x0
-
-%%
-%List of parameters
+%% List of parameters
 global p m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0 ...
     I2y0 Ixz20 I2z0 kt0 Rm0 ke0
      
@@ -34,6 +32,7 @@ Lm0 = 820.1e-6;
 g0 = 9.81;
 b10 = 6.05e-3;
 
+%% List of parameters MIT
 % g0 = 9.8;
 % b10 = 6e-4;
 % b20 = 5.52e-04;
@@ -55,10 +54,9 @@ b10 = 6.05e-3;
 % Lm0 = 1.845e-3;
 % Jm0 = 0.001; 
 
-%%Run simulink
-model = 'SimulationOfFurutaL4';
-load_system(model)
-sim(model)
+%% Run simulink
+% load_system('SimulationOfFurutaL4')
+% sim('SimulationOfFurutaL4')
 
 %% Linearised model
 
@@ -104,9 +102,9 @@ C1 = [ 1 0 0 0 ];
 C2 = [ 0 1 0 0 ];
 
 C=C2;
-D  = 0;
-%%
-%Plot graphs
+D =0;
+
+%% Plot graphs
 % figure(1)
 % t=0:0.01:20;
 % U = zeros(1,length(t));
@@ -142,21 +140,62 @@ D  = 0;
 % p2.Title.String = 'theta2';
 % setoptions(h2,p2);
 
-%%
-%Control
+%% Control Simulink
 % poles =  [(-4+j*4) (-4-j*4) (-2+j*2) (-2-j*2)];
 % K = place(A,B,poles);
-% LinearMF;
+% sim('LinearMF');
+% figure(4);
+% plot(WStheta2,'color','b');
+% figure(5);
+% plot(WSmotor,'color','b');
+
+poles = [(-1+j*1) (-1-j*1) (-2+j*2) (-2-j*2)];
+K = place(A,B,poles);
+sim('LinearMF');
+figure(4);
+hold on
+plot(WStheta2,'color','g');
+legend('1+1j 2+2j');
+figure(5);
+hold on
+plot(WSmotor,'color','g');
+legend('1+1j 2+2j');
+
+% poles =  [(-4+j*4) (-4-j*4) (-2+j*2) (-2-j*2)];
+% K = place(A,B,poles);
+% sim('LinearMF');
 % figure(4);
 % hold on
-% plot(WSmotor,'Color','r');
+% plot(WStheta2,'color','r');
+% title('theta2')
+% figure(5);
+% hold on
+% plot(WSmotor,'color','r');
+% title('motor')
 
-% poles = [(-8+j*8) (-8-j*8) (-4+j*4) (-4-j*4)];
+%% Control MATLAB
+% 
+% poles =  [(-4+j*4) (-4-j*4) (-2+j*2) (-2-j*2)];
 % K = place(A,B,poles);
-% LinearMF;
-% figure(4);
-% plot(WSmotor,'Color','b');
-
+% 
+% AA = A-B*K;
+% 
+% BB=[0; theta2o; 0; 0];
+% [x,z,t] = step(AA,BB,AA,BB);
+% x1= [1 0 0 0]*x';
+% x2= [0 1 0 0]*x';
+% x3= [0 0 1 0]*x';
+% x4= [0 0 0 1]*x';
+% 
+% subplot(2,2,1);
+% plot(t,x1);grid
+% title('theta 1')
+% xlabel('tSec')
+% 
+% subplot(2,2,2);
+% plot(t,x1);grid
+% title('theta 2')
+% xlabel('tSec')
 
 %%
 p = [g0 L10 l10 m10 I1x0 I1y0 I1z0 L20 l20 m20 I2x0 I2y0 I2z0 b10 b20 ...

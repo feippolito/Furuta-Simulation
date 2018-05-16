@@ -1,11 +1,9 @@
 %% Furuta Constants
 
 %FurutaSymbolic
-theta2o=10*pi/180;       %Initial position theta2
+theta2o=5*pi/180;       %Initial position theta2
 x0=0;                    %Linearization around the point x0
-
-%%
-%List of parameters
+%% List of parameters
 global p m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0 ...
     I2y0 Ixz20 I2z0 kt0 Rm0 ke0
      
@@ -34,6 +32,7 @@ Lm0 = 820.1e-6;
 g0 = 9.81;
 b10 = 6.05e-3;
 
+%% List of parameters MIT
 % g0 = 9.8;
 % b10 = 6e-4;
 % b20 = 5.52e-04;
@@ -55,10 +54,9 @@ b10 = 6.05e-3;
 % Lm0 = 1.845e-3;
 % Jm0 = 0.001; 
 
-%%Run simulink
-model = 'SimulationOfFurutaL4';
-load_system(model)
-sim(model)
+%% Run simulink
+% load_system('SimulationOfFurutaL4')
+% sim('SimulationOfFurutaL4')
 
 %% Linearised model
 
@@ -104,9 +102,9 @@ C1 = [ 1 0 0 0 ];
 C2 = [ 0 1 0 0 ];
 
 C=C2;
-D  = 0;
-%%
-%Plot graphs
+D =0;
+
+%% Plot graphs
 % figure(1)
 % t=0:0.01:20;
 % U = zeros(1,length(t));
@@ -142,37 +140,81 @@ D  = 0;
 % p2.Title.String = 'theta2';
 % setoptions(h2,p2);
 
-%%
-%Control
-poles =  [(-4+j*4) (-4-j*4) (-2+j*2) (-2-j*2)];
-K = place(A,B,poles);
-sim('LinearMF');
+%% Control Simulink
 figure(4);
-plot(WStheta2,'color','b');
+clf;
 figure(5);
-plot(WSmotor,'color','b');
+clf;
 
-poles = [(-8+j*8) (-8-j*8) (-4+j*4) (-4-j*4)];
-K = place(A,B,poles);
+poles1 = [(-2+j*2) (-2-j*2) -4 -1];
+K = place(A,B,poles1);
 sim('LinearMF');
 figure(4);
-hold on
 plot(WStheta2,'color','g');
-figure(5);
-hold on
-plot(WSmotor,'color','g');
-
-poles = [(-4+j*4) (-4-j*4) -5 -10];
-K = place(A,B,poles);
-sim('LinearMF');
-figure(4);
-hold on
-plot(WStheta2,'color','r');
+legend('-1+1j 2+2j');
 title('theta2')
 figure(5);
-hold on
-plot(WSmotor,'color','r');
+plot(WSmotor,'color','g');
+legend('-1+1j 2+2j');
 title('motor')
+
+% poles2 =  [(-4+j*2) (-4-j*2) (-2+j*2) (-2-j*2)];
+% K = place(A,B,poles2);
+% K(1)=0;
+% sim('LinearMF');
+% figure(4);
+% hold on
+% plot(WStheta2,'color','r');
+% figure(5);
+% hold on
+% plot(WSmotor,'color','r');
+% 
+% poles3 =  [(-2+j*2) (-2-j*2) (-4+j*4) (-4-j*4)];
+% K = place(A,B,poles3);
+% K(1)=0;
+% sim('LinearMF');
+% figure(4);
+% hold on
+% plot(WStheta2,'color','b');
+% figure(5);
+% hold on
+% plot(WSmotor,'color','b');
+
+figure(4);
+legend(poles1,poles2,poles3);
+title('theta2')
+
+figure(5);
+legend('poles1','poles2','poles3');
+title('motor')
+%%
+V1 = B*K-A;
+V2 = pinv(V1);
+Phi= C*V2*B;
+
+%% Control MATLAB
+% 
+% poles =  [(-4+j*4) (-4-j*4) (-2+j*2) (-2-j*2)];
+% K = place(A,B,poles);
+% 
+% AA = A-B*K;
+% 
+% BB=[0; theta2o; 0; 0];
+% [x,z,t] = step(AA,BB,AA,BB);
+% x1= [1 0 0 0]*x';
+% x2= [0 1 0 0]*x';
+% x3= [0 0 1 0]*x';
+% x4= [0 0 0 1]*x';
+% 
+% subplot(2,2,1);
+% plot(t,x1);grid
+% title('theta 1')
+% xlabel('tSec')
+% 
+% subplot(2,2,2);
+% plot(t,x1);grid
+% title('theta 2')
+% xlabel('tSec')
 
 %%
 p = [g0 L10 l10 m10 I1x0 I1y0 I1z0 L20 l20 m20 I2x0 I2y0 I2z0 b10 b20 ...
