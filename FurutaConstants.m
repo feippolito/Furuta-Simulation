@@ -1,8 +1,13 @@
 %% Furuta Constants
 
-%FurutaSymbolic
-theta2o=5*pi/180;       %Initial position theta2
-x0=0;                    %Linearization around the point x0
+FurutaSymbolic
+
+theta1o =0;             %Initial position theta2
+theta2o =14*pi/180;     %Initial position theta2
+dtheta1o=0;             %LINEAR
+dtheta2o=0;             %LINEAR
+
+x0=0;             %Linearization around the point x0
 %% List of parameters
 global p m20 g0 l20 b10 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0 ...
     I2y0 Ixz20 I2z0 kt0 Rm0 ke0
@@ -54,10 +59,6 @@ b10 = 6.05e-3;
 % Lm0 = 1.845e-3;
 % Jm0 = 0.001; 
 
-%% Run simulink
-% load_system('SimulationOfFurutaL4')
-% sim('SimulationOfFurutaL4')
-
 %% Linearised model
 
 syms theta1 theta2 dtheta1 e dtheta2 m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke
@@ -105,6 +106,10 @@ C=C2;
 D =0;
 
 %% Plot graphs
+%%RunSimulink
+% load_system('NonLinearMF')
+% sim('NonLinearMF')
+
 % figure(1)
 % t=0:0.01:20;
 % U = zeros(1,length(t));
@@ -148,49 +153,145 @@ clf;
 
 poles1 = [(-2+j*2) (-2-j*2) -4 -1];
 K = place(A,B,poles1);
+
 sim('LinearMF');
+sim('NonLinearMF');
+
 figure(4);
+hold on
+plot(theta2NL,'color','r');
 plot(WStheta2,'color','g');
-legend('-1+1j 2+2j');
+legend('Non Linear','Linear');
 title('theta2')
+
 figure(5);
+hold on
 plot(WSmotor,'color','g');
-legend('-1+1j 2+2j');
+plot(motorNL,'color','r');
+legend('Non Linear','Linear');
 title('motor')
 
-% poles2 =  [(-4+j*2) (-4-j*2) (-2+j*2) (-2-j*2)];
-% K = place(A,B,poles2);
-% K(1)=0;
+
+figure(4);
+title('theta2')
+
+figure(5);
+title('motor')
+
+%% Values - Linear Model
+
+% theta1a=0;
+% theta2a= 14*pi/180;
+% dtheta1a=0;
+% dtheta2a=0;
+% 
+% theta1b=0;
+% theta2b= 14*pi/180;
+% dtheta1b= 0;
+% dtheta2b=0.2;
+% 
+% theta1c=0;
+% theta2c= 14*pi/180;
+% dtheta1c=0;
+% dtheta2c=0.2;
+% 
+% theta1d=0;       
+% theta2d=pi;      
+% dtheta1d=0;
+% dtheta2d=0;
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% theta1o=theta1a;  
+% theta2o=theta2a;  
+% dtheta1o=dtheta1a;         
+% dtheta2o=dtheta2a; 
+% 
+% figure(6);
+% clf;
+% figure(7);
+% clf;
+% 
 % sim('LinearMF');
-% figure(4);
+% 
+% figure(6);
 % hold on
 % plot(WStheta2,'color','r');
-% figure(5);
+% 
+% figure(7);
 % hold on
 % plot(WSmotor,'color','r');
 % 
-% poles3 =  [(-2+j*2) (-2-j*2) (-4+j*4) (-4-j*4)];
-% K = place(A,B,poles3);
-% K(1)=0;
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% theta1o=theta1b;  
+% theta2o=theta2b;  
+% dtheta1o=dtheta1b;         
+% dtheta2o=dtheta2b; 
+% 
 % sim('LinearMF');
-% figure(4);
+% 
+% figure(6);
 % hold on
 % plot(WStheta2,'color','b');
-% figure(5);
+% 
+% figure(7);
 % hold on
 % plot(WSmotor,'color','b');
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% theta1o=theta1c;  
+% theta2o=theta2c;  
+% dtheta1o=dtheta1c;         
+% dtheta2o=dtheta2c; 
+% 
+% sim('LinearMF');
+% 
+% figure(6);
+% hold on
+% plot(WStheta2,'color','g');
+% 
+% 
+% figure(7);
+% hold on
+% plot(WSmotor,'color','g');
+% 
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% theta1o=theta1d;  
+% theta2o=theta2d;  
+% dtheta1o=dtheta1d;         
+% dtheta2o=dtheta2d; 
+% 
+% sim('LinearMF');
+% 
+% figure(6);
+% hold on
+% plot(WStheta2,'color','k');
+% 
+% figure(7);
+% hold on
+% plot(WSmotor,'color','k');
+% 
+% figure(6);
+% title('theta2')
+% legend(['t2=', num2str(theta2a*180/pi),'º', '  dt1=',num2str(dtheta1a),'  dt2=',num2str(dtheta2a)],...
+%     ['t2=', num2str(theta2b*180/pi),'º', '  dt1=',num2str(dtheta1b),'  dt2=',num2str(dtheta2b)],...
+%     ['t2=', num2str(theta2c*180/pi),'º', '  dt1=',num2str(dtheta1c),'  dt2=',num2str(dtheta2c)],...
+%     ['t2=', num2str(theta2d*180/pi),'º', '  dt1=',num2str(dtheta1d),'  dt2=',num2str(dtheta2d)]);
+% figure(7);
+% title('motor')
+% legend(['t2=', num2str(theta2a*180/pi),'º', '  dt1=',num2str(dtheta1a),'  dt2=',num2str(dtheta2a)],...
+%     ['t2=', num2str(theta2b*180/pi),'º', '  dt1=',num2str(dtheta1b),'  dt2=',num2str(dtheta2b)],...
+%     ['t2=', num2str(theta2c*180/pi),'º', '  dt1=',num2str(dtheta1c),'  dt2=',num2str(dtheta2c)],...
+%     ['t2=', num2str(theta2d*180/pi),'º', '  dt1=',num2str(dtheta1d),'  dt2=',num2str(dtheta2d)]);
 
-figure(4);
-legend(poles1,poles2,poles3);
-title('theta2')
 
-figure(5);
-legend('poles1','poles2','poles3');
-title('motor')
 %%
-V1 = B*K-A;
-V2 = pinv(V1);
-Phi= C*V2*B;
+% V1 = B*K-A;
+% V2 = pinv(V1);
+% Phi= C*V2*B;
 
 %% Control MATLAB
 % 

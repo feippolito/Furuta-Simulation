@@ -1,0 +1,18 @@
+Mtheta2=0;
+Mdtheta1=0;
+Mdtheta2=0
+i=0
+for(theta2o = -14:1:14)
+    for(dtheta1o = -10:1:10)
+        for(dtheta2o = -10:1:10)
+            sim('LinearMF');
+            Emax = max(WSmotor.data(:));
+            if(Emax <=12 )
+                Mtheta2=[Mtheta2 theta2o];
+                Mdtheta1=[Mdtheta1 dtheta1o];
+                Mdtheta2=[Mdtheta2 dtheta2o];
+            end
+            i=i+1
+        end
+    end
+end
