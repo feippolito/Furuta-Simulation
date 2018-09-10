@@ -12,46 +12,45 @@ g = 9.81;
 
 J = 0.1; 
 K = 0.01;
-b1 = 0.1;
+b1 = 6.0e-04;
 b2 = 5.52e-04;
 R = 12.38;
 
 alpha = J + (M + 1/3*ma+mp)*la^2;
+
 beta = (M + 1/3*mp)*lp^2;
+
 gamma = (M + .5*mp)*la*lp;
+
 delta = (M + .5*mp)*g*lp;
 
 %%Equations
 syms Phi dPhi Theta dTheta V;
 
-x0 = pi; %Linearisation around the point x0;
+x0 = 0; %Linearisation around the point x0;
 
 old = [Phi dPhi  Theta dTheta  V];
 new = [0     0    x0      0    0];
 
-
 TauPhi = K*(V-K*dTheta)/R;
+TauTheta = -b2*dTheta;
 
-TauTheta = b2*dTheta;
-
-numddPhi = (beta*gamma*(sin(Theta)*sin(Theta)-1)*cos(Theta)*sin(Theta)*dPhi*dPhi)...
-    - (2*beta*beta*cos(Theta)*sin(Theta)*dPhi*dTheta) + ( beta*gamma*sin(Theta)*dTheta*dTheta)...
+ddPhiNum = (beta*gamma*(sin(Theta)*sin(Theta)-1)*sin(Theta)*dPhi*dPhi) -...
+    (2*beta*beta*cos(Theta)*sin(Theta)*dPhi*dTheta) + ( beta*gamma*sin(Theta)*dTheta*dTheta)...
     - (gamma*delta*cos(Theta)*sin(Theta)) + (beta*TauPhi) - (gamma*cos(Theta)*TauTheta);
 
-denddPhi =(alpha*beta)-(gamma*gamma)+((beta*beta+gamma*gamma)*sin(Theta)*sin(Theta));
+ddPhiDen = (alpha*beta)-(gamma*gamma)+((beta*beta+gamma*gamma)*sin(Theta)*sin(Theta));
 
-ddPhi = numddPhi/denddPhi;
+ddPhi = ddPhiNum/ddPhiDen;
 
-numddTheta=(beta*(alpha + beta*sin(Theta)*sin(Theta))*cos(Theta)*sin(Theta)*dPhi*dPhi)+...
-    (2*beta*gamma*(1-sin(Theta)*sin(Theta))*sin(Theta)*dPhi*dTheta)-...
-    ( gamma*gamma*cos(Theta)*sin(Theta)*dTheta*dTheta)+( delta*(alpha+beta*sin(Theta)*sin(Theta))...
+ddThetaNum = (beta*(alpha + beta*sin(Theta)*sin(Theta))*cos(Theta)*sin(Theta)*dPhi*dPhi)...
+    +(2*beta*gamma*(1-sin(Theta)*sin(Theta))*sin(Theta)*dPhi*dTheta)...
+    -( gamma*gamma*cos(Theta)*sin(Theta)*dTheta*dTheta)+( delta*(alpha+beta*sin(Theta)*sin(Theta))...
     *sin(Theta))-(gamma*cos(Theta)*TauPhi)+((alpha+beta*sin(Theta)*sin(Theta))*TauTheta);
 
-denddTheta=(alpha*beta)-(gamma*gamma)+((beta*beta+gamma*gamma)*sin(Theta)*sin(Theta));
+ddThetaDen = (alpha*beta)-(gamma*gamma)+((beta*beta+gamma*gamma)*sin(Theta)*sin(Theta));
 
-ddTheta = numddTheta/denddTheta;
-
-%% Linear model
+ddTheta= ddThetaNum/ddThetaDen;
 
 A21 = diff(ddPhi,Phi);
 A21 = vpa(subs(A21,old,new));
@@ -85,13 +84,6 @@ B2 = vpa(subs(B2,old,new));
 B4 = diff(ddTheta,V);
 B4 = vpa(subs(B4,old,new));
 
-B = double([0 ;B2 ;0 ;B4]);
+B = double([0;B2;0;B4]);
 
-C = eye(4);
-
-D = [0 0 0 0];
-
-Thetao=5*pi/180
-
-% p = [(-2+j*2) (-2-j*2) -4 -1];
-% K = place(A,B,p);
+C=[0 0 1 0];

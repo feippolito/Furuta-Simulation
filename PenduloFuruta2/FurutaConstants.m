@@ -1,10 +1,9 @@
 %% Model Constants
 
 dtSim = 0.0001;
-% dtSim=1e-2;
-dtDisc = 0.005;
+dtDisc = 0.01;
 
-M = 0;
+M = 0.005;
 ma = 0.36233;
 mp = 0.04948;
 la = 230.45e-3;
@@ -26,14 +25,14 @@ gamma = (M + .5*mp)*la*lp;
 delta = (M + .5*mp)*g*lp;
 
 
-%% Linear model
+% Linear model
 A = zeros(4,4);
 B = zeros(4,1);
 C = zeros(1,4);
 
 ko = alpha*beta - gamma^2;
 
-% Stabilize -- UP
+%Stabilize -- UP
 
 A(1,2) = 1;
 A(2,2) = (-K^2*beta)/(R*ko);
@@ -44,75 +43,75 @@ A(4,2) = (gamma*K^2)/(ko*R);
 A(4,3) = (alpha*delta)/(ko);
 A(4,4) = (-b2*alpha)/(ko);
 
-% Stabilize -- Down
 
+B(2) = (beta*K)/(ko*R);
+B(4) = (-gamma*K)/(ko*R);
 
-% Observability and Controlability
+C = eye(4);
 
+%Observability and Controlability
 Ro = rank(obsv(A,C));
 Rc = rank(ctrb(A,B));
 
-%Feedback
-
-Kc = place(A,B,[-4+4i -4-4i -4 -5]);
-
-% Q=[10   0  0    0;
-%    0    1  0    0;
-%    0    0  100  0;
-%    0    0  0  10];
-% 
-% R=10;
-% 
-% Kc2 = lqr(A,B,Q,R);
-%% 3x3
+%% 3x3 | Observer
 
 A3=A(2:end,2:end);
 B3=B(2:end);
-% C3=C(2:end);
-C3=[0 1 0; 0 0 1];
+C3=[0 1 0;
+    0 0 1];
 
-%%LQE
-% Ro = rank(obsv(A3,C3));
-% Rc = rank(ctrb(A3,B3));
-% 
-% Vd=[0.1    0     0;
-%     0      0.1   0;
-%     0      0     0.1];
-% 
-% Vn=0.001;
-% 
-% [L,P,E]=lqe(A3,Vd,C3,Vd,Vn);
+%% Feedback
 
-% L=acker(A3',C3',[-2 -2 -2])';
+%%Place
+Kc = place(A3,B3,[-4+4i -4-4i -5]);
+
+%%LQR
+Q1=[1  0  0;
+    0  100  0;
+    0  0  1];
+
+R1=10;
+
+Kc2 = lqr(A3,B3,Q1,R1);
+
+%%Full state observer 1 input
+%L = acker(A3',C3',[-.5 -.25 -.25])';  %C3=[0 1 0]
 
 
-%%Full state
-A3=A(2:end,2:end);
-B3=B(2:end);
-C3=[ 0 1 0];
-L = acker(A3',C3',[-.5 -.25 -.25])';
+%%Minimum order | 2 inputs  - 1 output
+% Abb= A(2,2);
+% Aaa=[A(3,3) A(3,4); A(4,3) A(4,4)];
+% Aab = [A(3,2); A(4,2)];
+% Aba = [A(2,3) A(2,4)];
+% Bb = B(2);
+% Ba = [B(3) B(4)]';
+% 
+% Ke = place(Abb,Aab',-.326 )';
 
-%%Minimum order
-% Abb= [A(2,2) A(2,4);
-%      A(4,2) A(4,4)];
-% 
-% Aaa=A(3,3);
-% 
-% Aab = [A(3,2) A(3,4)];
-% 
-% Aba = [A(2,3) A(4,3)]';
-% 
-% Bb = [B(2) B(4)]';
-% Ba = B(3);
-% 
-% Ke = place(Abb,Aab',[-2 -3]);
-%%
 
-% Simulation
-angle = 170;
+%LQR/Kalman Filter | 2 inputs - 3 outputs
+Qk = [0.01  0  0;
+      0  100  0;
+      0  0  1];
+  
+Rk = [1000 0;
+      0 01];                    
+  
+% Qk = [0.01  0  0;
+%       0  100  0;
+%       0  0  1];
+%   
+% Rk = [1000 0;
+%       0 01];
+ 
+L = lqr(A3',C3',Qk,Rk)';
+
+%% Simulation
+angle = 180;
 Thetao = angle*pi/180;
 
-% Stabilize -- DOWN
+%% Stabilize -- DOWN
+
 PotMax = .5*mp*lp*g;
 
 % model = 'FurutaSimulink2';

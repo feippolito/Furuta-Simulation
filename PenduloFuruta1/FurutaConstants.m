@@ -61,8 +61,8 @@ b10 = 6.05e-3;
 
 %% Linearised model
 
-sa2 e m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke];
-new = [0 x0 0 0 0 m20 g0 l20 b1yms theta1 theta2 dtheta1 dtheta2 e m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke
+syms e m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke;
+new = [0 x0 0 0 0 m20 g0 l20 b1yms theta1 theta2 dtheta1 dtheta2 e m2 g l2 b1 b2 m1 L1 l1 L2 I1x I1y I1z I2x I2y Ixz2 I2z kt Rm ke]
 old = [theta1 theta2 dtheta1 dthet0 b20 m10 L10 l10 L20 I1x0 I1y0 I1z0 I2x0  I2y0 Ixz20 I2z0 kt0 Rm0 ke0];
 
 A11 = diff(f(1),theta1);

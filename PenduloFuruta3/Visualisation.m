@@ -19,7 +19,7 @@ Harm  = fill3(Xh,Yh,Zh,'b');
 Varm  = fill3(Xv,Yv,Zv,'g'); 
 
 s=5;
-M=scatter3(Xv(2),Yv(2),Zv(2),s,'filled','MarkerFaceColor','b','MarkerEdgeColor','k')
+M=scatter3(Xv(2),Yv(2),Zv(2),s,'filled','MarkerFaceColor','b','MarkerEdgeColor','k');
 
 
 axis([-AL AL -AL AL -AL AL]);
@@ -33,7 +33,8 @@ TXT=title('Time: ')
 
 
 
-for t=1:100:size(simTheta,1)
+for t=1:200:size(simTheta,1)
+    t
     TXT2=sprintf('Time:%.2f',simt(t));
     set(TXT,'String',TXT2);
     
