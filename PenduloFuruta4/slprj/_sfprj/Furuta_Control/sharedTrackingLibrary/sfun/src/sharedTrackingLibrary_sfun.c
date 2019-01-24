@@ -67,10 +67,10 @@ unsigned int sf_sharedTrackingLibrary_process_check_sum_call( int nlhs, mxArray 
       machineName[(sizeof(machineName)/sizeof(char)-1)] = '\0';
       if (!strcmp(machineName,"sharedTrackingLibrary")) {
         if (nrhs==3) {
-          ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3514910825U);
-          ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(270598424U);
-          ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1207393351U);
-          ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1631410823U);
+          ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2961008575U);
+          ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3905265499U);
+          ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2243732737U);
+          ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(295405762U);
         } else if (nrhs==4) {
           unsigned int chartFileNumber;
           chartFileNumber = (unsigned int)mxGetScalar(prhs[3]);
@@ -145,7 +145,7 @@ unsigned int sf_sharedTrackingLibrary_autoinheritance_info( int nlhs, mxArray *
     switch (chartFileNumber) {
      case 1:
       {
-        if (strcmp(aiChksum, "whko95dcsmhKSMPnX4Eq") == 0) {
+        if (strcmp(aiChksum, "K3FyRLdYeDuSEeh0NLkbKE") == 0) {
           extern mxArray *sf_c1_sharedTrackingLibrary_get_autoinheritance_info
             (void);
           plhs[0] = sf_c1_sharedTrackingLibrary_get_autoinheritance_info();
@@ -158,7 +158,7 @@ unsigned int sf_sharedTrackingLibrary_autoinheritance_info( int nlhs, mxArray *
 
      case 2:
       {
-        if (strcmp(aiChksum, "waJL0rOlwzVpzFrYCGEn7G") == 0) {
+        if (strcmp(aiChksum, "EXxfBmkM41NM682OqCkOEG") == 0) {
           extern mxArray *sf_c2_sharedTrackingLibrary_get_autoinheritance_info
             (void);
           plhs[0] = sf_c2_sharedTrackingLibrary_get_autoinheritance_info();
@@ -191,7 +191,8 @@ unsigned int sf_sharedTrackingLibrary_get_eml_resolved_functions_info( int nlhs,
 #ifdef MATLAB_MEX_FILE
 
   char commandName[64];
-  if (nrhs<2 || !mxIsChar(prhs[0]))
+  char instanceChksum[64];
+  if (nrhs<3 || !mxIsChar(prhs[0]))
     return 0;
 
   /* Possible call to get the get_eml_resolved_functions_info */
@@ -202,28 +203,34 @@ unsigned int sf_sharedTrackingLibrary_get_eml_resolved_functions_info( int nlhs,
 
   {
     unsigned int chartFileNumber;
+    mxGetString(prhs[2], instanceChksum,sizeof(instanceChksum)/sizeof(char));
+    instanceChksum[(sizeof(instanceChksum)/sizeof(char)-1)] = '\0';
     chartFileNumber = (unsigned int)mxGetScalar(prhs[1]);
     switch (chartFileNumber) {
      case 1:
       {
-        extern const mxArray
-          *sf_c1_sharedTrackingLibrary_get_eml_resolved_functions_info(void);
-        mxArray *persistentMxArray = (mxArray *)
-          sf_c1_sharedTrackingLibrary_get_eml_resolved_functions_info();
-        plhs[0] = mxDuplicateArray(persistentMxArray);
-        mxDestroyArray(persistentMxArray);
-        break;
+        if (strcmp(instanceChksum, "stsl78O3SJFHhxoDBUETNF") == 0) {
+          extern const mxArray
+            *sf_c1_sharedTrackingLibrary_get_eml_resolved_functions_info(void);
+          mxArray *persistentMxArray = (mxArray *)
+            sf_c1_sharedTrackingLibrary_get_eml_resolved_functions_info();
+          plhs[0] = mxDuplicateArray(persistentMxArray);
+          mxDestroyArray(persistentMxArray);
+          break;
+        }
       }
 
      case 2:
       {
-        extern const mxArray
-          *sf_c2_sharedTrackingLibrary_get_eml_resolved_functions_info(void);
-        mxArray *persistentMxArray = (mxArray *)
-          sf_c2_sharedTrackingLibrary_get_eml_resolved_functions_info();
-        plhs[0] = mxDuplicateArray(persistentMxArray);
-        mxDestroyArray(persistentMxArray);
-        break;
+        if (strcmp(instanceChksum, "sbbPl1z2rJ937LKSfxEL8WH") == 0) {
+          extern const mxArray
+            *sf_c2_sharedTrackingLibrary_get_eml_resolved_functions_info(void);
+          mxArray *persistentMxArray = (mxArray *)
+            sf_c2_sharedTrackingLibrary_get_eml_resolved_functions_info();
+          plhs[0] = mxDuplicateArray(persistentMxArray);
+          mxDestroyArray(persistentMxArray);
+          break;
+        }
       }
 
      default:
@@ -263,7 +270,7 @@ unsigned int sf_sharedTrackingLibrary_third_party_uses_info( int nlhs, mxArray *
     switch (chartFileNumber) {
      case 1:
       {
-        if (strcmp(tpChksum, "sGhunIkBZhnZxXRtLsxRHlH") == 0) {
+        if (strcmp(tpChksum, "stsl78O3SJFHhxoDBUETNF") == 0) {
           extern mxArray *sf_c1_sharedTrackingLibrary_third_party_uses_info(void);
           plhs[0] = sf_c1_sharedTrackingLibrary_third_party_uses_info();
           break;
@@ -272,7 +279,7 @@ unsigned int sf_sharedTrackingLibrary_third_party_uses_info( int nlhs, mxArray *
 
      case 2:
       {
-        if (strcmp(tpChksum, "sqrtvRBMmD58lojovQqziAF") == 0) {
+        if (strcmp(tpChksum, "sbbPl1z2rJ937LKSfxEL8WH") == 0) {
           extern mxArray *sf_c2_sharedTrackingLibrary_third_party_uses_info(void);
           plhs[0] = sf_c2_sharedTrackingLibrary_third_party_uses_info();
           break;
@@ -309,7 +316,7 @@ unsigned int sf_sharedTrackingLibrary_jit_fallback_info( int nlhs, mxArray *
     switch (chartFileNumber) {
      case 1:
       {
-        if (strcmp(tpChksum, "sGhunIkBZhnZxXRtLsxRHlH") == 0) {
+        if (strcmp(tpChksum, "stsl78O3SJFHhxoDBUETNF") == 0) {
           extern mxArray *sf_c1_sharedTrackingLibrary_jit_fallback_info(void);
           plhs[0] = sf_c1_sharedTrackingLibrary_jit_fallback_info();
           break;
@@ -318,7 +325,7 @@ unsigned int sf_sharedTrackingLibrary_jit_fallback_info( int nlhs, mxArray *
 
      case 2:
       {
-        if (strcmp(tpChksum, "sqrtvRBMmD58lojovQqziAF") == 0) {
+        if (strcmp(tpChksum, "sbbPl1z2rJ937LKSfxEL8WH") == 0) {
           extern mxArray *sf_c2_sharedTrackingLibrary_jit_fallback_info(void);
           plhs[0] = sf_c2_sharedTrackingLibrary_jit_fallback_info();
           break;
@@ -355,7 +362,7 @@ unsigned int sf_sharedTrackingLibrary_updateBuildInfo_args_info( int nlhs,
     switch (chartFileNumber) {
      case 1:
       {
-        if (strcmp(tpChksum, "sGhunIkBZhnZxXRtLsxRHlH") == 0) {
+        if (strcmp(tpChksum, "stsl78O3SJFHhxoDBUETNF") == 0) {
           extern mxArray *sf_c1_sharedTrackingLibrary_updateBuildInfo_args_info
             (void);
           plhs[0] = sf_c1_sharedTrackingLibrary_updateBuildInfo_args_info();
@@ -365,7 +372,7 @@ unsigned int sf_sharedTrackingLibrary_updateBuildInfo_args_info( int nlhs,
 
      case 2:
       {
-        if (strcmp(tpChksum, "sqrtvRBMmD58lojovQqziAF") == 0) {
+        if (strcmp(tpChksum, "sbbPl1z2rJ937LKSfxEL8WH") == 0) {
           extern mxArray *sf_c2_sharedTrackingLibrary_updateBuildInfo_args_info
             (void);
           plhs[0] = sf_c2_sharedTrackingLibrary_updateBuildInfo_args_info();

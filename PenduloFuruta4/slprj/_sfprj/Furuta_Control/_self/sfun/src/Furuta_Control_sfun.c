@@ -65,18 +65,18 @@ unsigned int sf_Furuta_Control_process_check_sum_call( int nlhs, mxArray * plhs[
         ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0.0);
       }
     } else if (!strcmp(commandName,"target")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(97065511U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(908675992U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3299048847U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(546220334U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2184484265U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1411923864U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2313604889U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3107320123U);
     } else {
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2317258681U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(213935459U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2986957742U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3259713762U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(402683690U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(4058267102U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3225007731U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3753166694U);
   }
 
   return 1;
@@ -134,7 +134,8 @@ unsigned int sf_Furuta_Control_get_eml_resolved_functions_info( int nlhs,
 #ifdef MATLAB_MEX_FILE
 
   char commandName[64];
-  if (nrhs<2 || !mxIsChar(prhs[0]))
+  char instanceChksum[64];
+  if (nrhs<3 || !mxIsChar(prhs[0]))
     return 0;
 
   /* Possible call to get the get_eml_resolved_functions_info */
@@ -145,6 +146,8 @@ unsigned int sf_Furuta_Control_get_eml_resolved_functions_info( int nlhs,
 
   {
     unsigned int chartFileNumber;
+    mxGetString(prhs[2], instanceChksum,sizeof(instanceChksum)/sizeof(char));
+    instanceChksum[(sizeof(instanceChksum)/sizeof(char)-1)] = '\0';
     chartFileNumber = (unsigned int)mxGetScalar(prhs[1]);
     switch (chartFileNumber) {
      default:

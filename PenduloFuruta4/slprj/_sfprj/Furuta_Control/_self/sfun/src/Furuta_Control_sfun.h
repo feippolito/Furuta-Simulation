@@ -3,7 +3,10 @@
 
 /* Include files */
 #define S_FUNCTION_NAME                sf_sfun
+#include "covrt.h"
 #include "sf_runtime/sfc_sf.h"
+#include "sf_runtime/MessageServiceLayer.h"
+#include "sf_runtime/DebuggerRuntimeInterface.h"
 #include "sf_runtime/sfc_mex.h"
 #include "sf_runtime/sf_runtime_errors.h"
 #include "rtwtypes.h"

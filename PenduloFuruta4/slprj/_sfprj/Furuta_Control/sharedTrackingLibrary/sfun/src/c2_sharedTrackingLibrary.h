@@ -1,33 +1,29 @@
 #ifndef __c2_sharedTrackingLibrary_h__
 #define __c2_sharedTrackingLibrary_h__
 
-/* Include files */
-#include "sf_runtime/sfc_sf.h"
-#include "sf_runtime/sfc_mex.h"
-#include "rtwtypes.h"
-#include "multiword_types.h"
-
 /* Type Definitions */
-#ifndef struct_tag_sTgNTRvgwja1E54wWaqTrHD
-#define struct_tag_sTgNTRvgwja1E54wWaqTrHD
+#ifndef struct_tag_sa7zVHjml4KNIUODgeuHwWG
+#define struct_tag_sa7zVHjml4KNIUODgeuHwWG
 
-struct tag_sTgNTRvgwja1E54wWaqTrHD
+struct tag_sa7zVHjml4KNIUODgeuHwWG
 {
   char_T FcnName[23];
+  boolean_T IsSimulinkFcn;
+  real_T NumberOfExtraArgumentInports;
   boolean_T HasAdditiveNoise;
   real_T Alpha;
   real_T Beta;
   real_T Kappa;
 };
 
-#endif                                 /*struct_tag_sTgNTRvgwja1E54wWaqTrHD*/
+#endif                                 /*struct_tag_sa7zVHjml4KNIUODgeuHwWG*/
 
-#ifndef typedef_c2_sTgNTRvgwja1E54wWaqTrHD
-#define typedef_c2_sTgNTRvgwja1E54wWaqTrHD
+#ifndef typedef_c2_sa7zVHjml4KNIUODgeuHwWG
+#define typedef_c2_sa7zVHjml4KNIUODgeuHwWG
 
-typedef struct tag_sTgNTRvgwja1E54wWaqTrHD c2_sTgNTRvgwja1E54wWaqTrHD;
+typedef struct tag_sa7zVHjml4KNIUODgeuHwWG c2_sa7zVHjml4KNIUODgeuHwWG;
 
-#endif                                 /*typedef_c2_sTgNTRvgwja1E54wWaqTrHD*/
+#endif                                 /*typedef_c2_sa7zVHjml4KNIUODgeuHwWG*/
 
 #ifndef typedef_SFc2_sharedTrackingLibraryInstanceStruct
 #define typedef_SFc2_sharedTrackingLibraryInstanceStruct
@@ -40,13 +36,15 @@ typedef struct {
   int32_T c2_sfEvent;
   boolean_T c2_doneDoubleBufferReInit;
   uint8_T c2_is_active_c2_sharedTrackingLibrary;
-  c2_sTgNTRvgwja1E54wWaqTrHD c2_pS;
+  c2_sa7zVHjml4KNIUODgeuHwWG c2_pS;
   void *c2_fEmlrtCtx;
   real_T (*c2_x)[2];
   real_T (*c2_xNew)[2];
   real_T (*c2_P)[4];
   real_T (*c2_Q)[4];
-  real_T (*c2_PNew)[4];
+  real_T *c2_uState;
+  boolean_T *c2_unused;
+  real_T (*c2_b_P)[4];
 } SFc2_sharedTrackingLibraryInstanceStruct;
 
 #endif                                 /*typedef_SFc2_sharedTrackingLibraryInstanceStruct*/

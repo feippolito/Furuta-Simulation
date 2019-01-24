@@ -210,19 +210,21 @@ unsigned int sf_process_get_eml_resolved_functions_info_call( int nlhs, mxArray 
   mxGetString(prhs[1], machineName,sizeof(machineName)/sizeof(char));
   machineName[(sizeof(machineName)/sizeof(char)-1)] = '\0';
   if (strcmp(machineName, "Furuta_Control") == 0) {
-    const mxArray *newRhs[2] = { NULL, NULL };
+    const mxArray *newRhs[3] = { NULL, NULL, NULL };
 
     newRhs[0] = prhs[0];
     newRhs[1] = prhs[2];
-    return sf_Furuta_Control_get_eml_resolved_functions_info(nlhs,plhs,2,newRhs);
+    newRhs[2] = prhs[3];
+    return sf_Furuta_Control_get_eml_resolved_functions_info(nlhs,plhs,3,newRhs);
   }
 
   if (strcmp(machineName, "sharedTrackingLibrary") == 0) {
-    const mxArray *newRhs[2] = { NULL, NULL };
+    const mxArray *newRhs[3] = { NULL, NULL, NULL };
 
     newRhs[0] = prhs[0];
     newRhs[1] = prhs[2];
-    return sf_sharedTrackingLibrary_get_eml_resolved_functions_info(nlhs,plhs,2,
+    newRhs[2] = prhs[3];
+    return sf_sharedTrackingLibrary_get_eml_resolved_functions_info(nlhs,plhs,3,
       newRhs);
   }
 
