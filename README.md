@@ -19,4 +19,4 @@ This repository contains:
 
 6. UKF implementation in C/C++ language (not finished)  
 
-The project as a whole also includes an [Hardware in the loop (HIL) simulation](https://github.com/feippolito/HIL-FurutaPendulum) and the [system identification and control on the LabVIEW enviroment](https://github.com/feippolito/FurutaPendulum-Control)
+The project as a whole also includes an [Hardware in the loop (HIL) simulation](https://github.com/feippolito/HIL-FurutaPendulum) and the [system identification and control with LabVIEW](https://github.com/feippolito/FurutaPendulum-Control)
