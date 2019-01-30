@@ -13,7 +13,7 @@ This repository contains:
 
 4. Two different closed-loop systems simulations:
    - Full state availability.
-   - State estimation with non linear unscented Kalman-filter (UKF).
+   - State estimation with non linear obeserver - unscented Kalman-filter (UKF).
    
 5. Simulation visualization
 
