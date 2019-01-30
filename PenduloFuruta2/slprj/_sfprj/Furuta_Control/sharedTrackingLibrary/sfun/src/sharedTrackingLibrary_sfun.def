@@ -1,3 +1,0 @@
-LIBRARY sharedTrackingLibrary_sfun.lib
-EXPORTS
-mexFunction

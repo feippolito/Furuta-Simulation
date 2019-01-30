@@ -1,5 +1,0 @@
-function y=myMeasurementFcn1(x)
-%dPhi   x(1)
-%Theta  x(2)
-%dTheta x(3)
-y=x(2)
