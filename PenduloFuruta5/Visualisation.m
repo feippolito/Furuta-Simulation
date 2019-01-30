@@ -1,4 +1,4 @@
-view(90,0)                    %Starting view
+view(135,30)                    %Starting view
 AL = 5;                         %Define graph axis limits
 
 grid on

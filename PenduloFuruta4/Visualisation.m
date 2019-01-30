@@ -3,8 +3,8 @@ AL = 5;                         %Define graph axis limits
 
 grid on
 
-L1=3;
-L2=2;
+L1=1;  %Rotatary arm length
+L2=2;  %Pendulum length
 
 Xh=[0 ; L1]';
 Yh=[0 ; 0]';

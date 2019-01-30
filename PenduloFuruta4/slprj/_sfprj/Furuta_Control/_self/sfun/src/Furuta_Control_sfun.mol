@@ -1,23 +1,21 @@
-Furuta_Control_sfun.obj
-Furuta_Control_sfun_registry.obj
-c_mexapi_version.obj
+Furuta_Control_sfun.o
+Furuta_Control_sfun_registry.o
 
-"C:\Users\felip\Documents\NSEE\Pendulo\PenduloFuruta4\slprj\_sfprj\Furuta_Control\sharedTrackingLibrary\sfun\src\sharedTrackingLibrary_sfun.lib"
--LIBPATH:C:\PROGRA~1\MATLAB\R2018a\extern\lib\win64\microsoft
-C:\PROGRA~1\MATLAB\R2018a\extern\lib\win64\microsoft\libmwblas.lib
+"/home/ippolito/Documents/NSEE/FurutaPendulum-Simulation/PenduloFuruta4/slprj/_sfprj/Furuta_Control/sharedTrackingLibrary/sfun/src/sharedTrackingLibrary_sfun.a"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwsf_runtime"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lfixedpoint"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lut"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lemlrt"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwmathutil"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwblas"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwsl_log_load_blocks"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwsimulink"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwsl_sfcn_cov_bridge"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lcovrt"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwlapack"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwsl_simtarget_core"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwsl_simtarget_instrumentation"
+"-L/usr/local/MATLAB/R2018a/bin/glnxa64" "-lmwipp"
+-L/usr/local/MATLAB/R2018a/bin/glnxa64
+-lmwblas
 
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\sf_runtime.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmx.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmex.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmat.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libfixedpoint.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libut.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmwmathutil.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libemlrt.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmwsl_log_load_blocks.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmwsimulink.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmwsl_sfcn_cov_bridge.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libcovrt.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmwsl_simtarget_core.lib"
-"C:\Program Files\MATLAB\R2018a\extern\lib\win64\microsoft\libmwsl_simtarget_instrumentation.lib"
-"C:\Program Files\MATLAB\R2018a\lib\win64\libmwipp.lib"
