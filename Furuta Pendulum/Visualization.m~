@@ -18,7 +18,7 @@ hold on
 Harm  = fill3(Xh,Yh,Zh,'b'); 
 Varm  = fill3(Xv,Yv,Zv,'g'); 
 
-s=8;
+s=5;
 M=scatter3(Xv(2),Yv(2),Zv(2),s,'filled','MarkerFaceColor','b','MarkerEdgeColor','k')
 
 
@@ -26,11 +26,11 @@ axis([-AL AL -AL AL -AL AL]);
 
 theta=0;
 phi=0;
-c = [0 0 0];
+c = [ 0 0 0]
 
 TXT=title('Time: ')
 
-for t=1:20:size(simTheta,1)
+for t=1:10:size(simTheta,1)
     TXT2=sprintf('Time:%.2f',simt(t));
     set(TXT,'String',TXT2);
     
@@ -63,14 +63,9 @@ for t=1:20:size(simTheta,1)
     set(Varm,'ZData',Zv);
     %set(Varm,'FaceVertexCData',C);
     rem(t,30)
-    
-
-
-     %scatter3(Xv(2),Yv(2),Zv(2),s,'filled','MarkerFaceColor',c,'MarkerEdgeColor','k');
-          
-          
-       
-       
+       if((rem(t,30)==1)&&(rem(t,30)==1)) 
+          scatter3(Xv(2),Yv(2),Zv(2),s,'filled','MarkerFaceColor','r','MarkerEdgeColor',c);
+       end
     
     set(M,'XData',Xv(2));
     set(M,'YData',Yv(2));
