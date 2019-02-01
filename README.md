@@ -28,6 +28,6 @@ This repository contains:
 
 ![](Visualization.gif)
 
-###### The project as a whole also includes an Hardware in the loop (HIL) simulation  and the system identification and control with LabVIEW github repositories:
-######   Github repository [FurutaPendulum-HIL](https://github.com/feippolito/FurutaPendulum-HIL)
-######   Github repository [FurutaPendulum-Control](https://github.com/feippolito/FurutaPendulum-Control)
+###### The project as a whole also includes an Hardware in the loop (HIL) simulation  and the system identification and control with LabVIEW:
+######   Github repository : [Furuta-HIL](https://github.com/feippolito/Furuta-HIL)
+######   Github repository : [Furuta-Control](https://github.com/feippolito/Furuta-Control)
