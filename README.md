@@ -28,6 +28,7 @@ This repository contains:
 
 ![](Visualization.gif)
 
-###### The project as a whole also includes an Hardware in the loop (HIL) simulation  and the system identification and control with LabVIEW:
+###### Please check the following repositorys of more information on this project.
+######   Github repository : [Furuta-Cosimulation](https://github.com/feippolito/Furuta-Cosimulation)
 ######   Github repository : [Furuta-HIL](https://github.com/feippolito/Furuta-HIL)
 ######   Github repository : [Furuta-Control](https://github.com/feippolito/Furuta-Control)
