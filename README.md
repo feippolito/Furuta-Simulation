@@ -28,7 +28,7 @@ This repository contains:
 
 ![](Visualization.gif)
 
-###### Please check the following repositorys of more information on this project.
-######   Github repository : [Furuta-Cosimulation](https://github.com/feippolito/Furuta-Cosimulation)
-######   Github repository : [Furuta-HIL](https://github.com/feippolito/Furuta-HIL)
-######   Github repository : [Furuta-Control](https://github.com/feippolito/Furuta-Control)
+###### Please check the following repositories of more information on this project.
+###### Co-simulation - controller optimisation : [Furuta-Cosimulation](https://github.com/feippolito/Furuta-Cosimulation)
+###### Hardware in the loop technique : [Furuta-HIL](https://github.com/feippolito/Furuta-HIL)
+###### Control implementation on real pendulum : [Furuta-Control](https://github.com/feippolito/Furuta-Control)
