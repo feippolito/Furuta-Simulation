@@ -17,7 +17,7 @@ This repository contains:
    
 - Simulation visualization
 
-- UKF implementation in C/C++ language (not finished)  
+- UKF implementation in C/C++ language (unfinished)  
 
 
 ### Simulink simulation of the swing-up and control:
