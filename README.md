@@ -17,6 +17,19 @@ This repository contains:
    
 - Simulation visualization
 
-- UKF implementation in C/C++ language (not finished)  
+- UKF implementation in C/C++ language (unfinished)  
 
-The project as a whole also includes an [Hardware in the loop (HIL) simulation](https://github.com/feippolito/HIL-FurutaPendulum) and the [system identification and control with LabVIEW](https://github.com/feippolito/FurutaPendulum-Control)
+
+### Simulink simulation of the swing-up and control:
+
+![](Simulink_SwingUpAndControl.jpg )
+
+### Simulation visualization:
+
+![](Visualization.gif)
+
+###### Please check the following repositories of more information on this project.
+###### Control implementation on real pendulum : [Furuta-Control](https://github.com/feippolito/Furuta-Control)
+###### Co-simulation - controller optimisation : [Furuta-Cosimulation](https://github.com/feippolito/Furuta-Cosimulation)
+###### Hardware in the loop technique : [Furuta-HIL](https://github.com/feippolito/Furuta-HIL)
+
